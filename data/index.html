@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Baran Technology</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="mqstyle.css">
+    <script src="mqscript.js"></script>
+    <link rel="icon" type="image/x-ico" href="favicon.ico">
+  </head>
+  <body>
+    <div class="topnav">
+      <a class="active" onclick="menuSel('main')">Baran MQTT Thing</a>
+      <a onclick="menuSel('mqtt')">Mqtt</a>
+      <a onclick="menuSel('sensor')">Sensor</a>
+      <a onclick="menuSel('network')">Network</a>
+    </div>
+
+    <div class="content">
+
+      <form>
+        <table style="width:100%" id="tbMain">
+          <tr><td colspan="2" align="center"><b>Sensor Status</b></td></tr>
+          <tr style="height:40px">
+            <td width="30%">Temperature</td>
+            <td width="70%" id="lblTemp">...</td>
+          </tr>
+          <tr style="height:40px">
+            <td>Alarm</td>
+            <td id="lblAlm">...</td>
+          </tr>
+          <tr style="height:40px">
+            <td>Sensor</td>
+            <td id="lblSensor">...</td>
+          </tr>
+          <tr style="height:40px">
+            <td>Uptime</td>
+            <td id="lblUptime">...</td>
+          </tr>
+          <tr style="height:40px">
+            <td>Storage</td>
+            <td id="lblStorage">...</td>
+          </tr>
+          <tr style="height:40px">
+            <td>Used</td>
+            <td id="lblUsed">...</td>
+          </tr>
+          <tr style="height:40px">
+            <td>Free</td>
+            <td id="lblFree">...</td>
+          </tr>
+          <tr style="height:40px">
+            <td>Firmware Version</td>
+            <td id="lblFirmware">...</td>
+          </tr>
+        </table>         
+
+        <table style="width:100%" id="tbSensor">
+          <tr><td colspan="2" align="center"><b>Sensor Settings</b></td></tr>
+          <tr>
+            <td>Set Temp. Limit</td>
+            <td><input type="text" id="inLimit"></td>
+          </tr>
+          <tr>
+          <tr>
+            <td>Sensor ID</td>
+            <td><input type="text" id="inId"></td>
+          </tr>
+          <tr>
+            <td>Sensor Name</td>
+            <td><input type="text" id="inName"></td>
+          </tr>
+          <tr>
+            <td>Sensor Location</td>
+            <td><input type="text" id="inLoc"></td>
+          </tr>
+        </table>         
+
+        <table style="width:100%" id="tbNetwork">
+          <tr><td colspan="2" align="center"><b>Ethernet Network Settings</b></td></tr>
+          <tr>
+            <td>IP Address</td>
+            <td><input type="text" id="inIp"></td>
+          </tr>
+
+          <tr>
+            <td>Gateway Address</td>
+            <td><input type="text" id="inGateway"></td>
+          </tr>
+          <tr>
+            <td>Subnet</td>
+            <td><input type="text" id="inSubnet"></td>
+          </tr>
+          <br>
+          <tr>
+            <td>Access Point SSID</td>
+            <td><p>MQTT_THING</p></td>
+          </tr>
+          <tr>
+            <td>Access Point Password</td>
+            <td><p>11223344</p></td>
+          </tr>
+        </table>         
+
+
+
+        <table style="width:100%" id="tbMqtt">
+          <tr><td colspan="2" align="center"><b>MQTT Settings</b></td></tr>
+          <tr>
+            <td>Server Address</td>
+            <td><input type="text" id="inMqttServer"></td>
+          </tr>
+          <tr>
+            <td>Username</td>
+            <td><input type="text" id="inMqttUser"></td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td><input type="text" id="inMqttPass"></td>
+          </tr>
+          <tr>
+            <td>Pub.Topic</td>
+            <td><input type="text" id="inMqttPtop"></td>
+          </tr>
+          <tr>
+            <td>Sub.Topic</td>
+            <td><input type="text" id="inMqttStop"></td>
+          </tr>
+          <tr>
+            <td>Interval</td>
+            <td><input type="text" id="inMqttInt"></td>
+          </tr>
+          <tr>
+            <td>SSL Certificate (*)</td>
+            <td><input type="text" id="inMqttCert"></td>
+          </tr>
+          <tr>
+            <td>Upload Certificate</td>
+            <td>
+                <input id="upfile" type="file"/><button id="upload-button" onclick="uploadFile()"> Upload </button>
+            </td>
+          </tr>
+          <tr><td colspan="2"><p>(*) SSL Certificate file must be named "ssl.crt"</p></td></tr>
+        </table>         
+
+        <br><hr>
+        <button onclick="saveSett()" id="btnSave"> Save Settings </button>
+     
+      </form>
+
+
+      <footer>
+        <pre>Baran Technology "your trusted technology partner since 2006" | www.baran.tech  info@baran.tech</pre>
+      </footer>
+
+    </div>
+
+  </body>
+</html>
