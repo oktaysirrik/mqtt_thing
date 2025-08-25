@@ -62,14 +62,15 @@ void setup() {
 
   bool ief = initEth();
   
-  if(ief){
-    mode = 1;
-    mqtt_init();
-  }else{
-    mode = 0;
+
+  if(mode == 0){
     initWifi();
+  }else{
+    if(ief){
+      mqtt_init();
+    }
   }
-  ee.setMode(mode);
+  
   oled.showMode(mode);
   initWeb();
   checkServer();  //is mqtt network available?
@@ -113,13 +114,18 @@ void loop() {
     while (digitalRead(BUTTON) == 1) { delay(10);}
     int dt = millis() - tb;
  
+    state = false;
     if (dt<2000){ 
-      state = false;
       return;
     }
 
-    //switch mode wifi
     if (dt<3000){
+      //switch mode wifi
+      if(mode == 1){
+        mode=0;
+      } else {
+        mode=1;
+      }
       ee.setMode(mode);
     } else {
       //factory reset
