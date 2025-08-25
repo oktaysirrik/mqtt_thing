@@ -54,6 +54,18 @@ void OLED::showMode(byte mode){
   display.display();
 }
 
+void OLED::showError(String error){
+  display.clearDisplay();
+  display.setTextSize(2);      
+  display.setCursor(10, 2);    
+  display.print("ERROR");
+  display.setTextSize(1);      
+  display.setCursor(10, 42);    
+  display.print(error);
+  display.display();
+}
+
+
 void OLED::showReset(){
   display.clearDisplay();
   display.setTextSize(1);      

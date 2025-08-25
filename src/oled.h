@@ -15,6 +15,7 @@ public:
 	void begin();
 	void splash(String);
 	void showMode(byte);
+	void showError(String);
 	void showETHsrc();
 	void showReset();
 	void showTemp(float, bool, byte);

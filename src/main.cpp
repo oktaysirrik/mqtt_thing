@@ -60,12 +60,11 @@ void setup() {
   delay(3000); 
   initDefaults(false);
 
-  bool ief = initEth();
   
-
   if(mode == 0){
     initWifi();
   }else{
+    bool ief = initEth();
     if(ief){
       mqtt_init();
     }
@@ -74,6 +73,10 @@ void setup() {
   oled.showMode(mode);
   initWeb();
   checkServer();  //is mqtt network available?
+  if(connected==false){
+    oled.showError("mqtt not connected.!");
+    delay(500);
+  }
 
   t0 = millis();
   t1 = millis();
@@ -122,9 +125,9 @@ void loop() {
     if (dt<3000){
       //switch mode wifi
       if(mode == 1){
-        mode=0;
+        mode = 0;
       } else {
-        mode=1;
+        mode = 1;
       }
       ee.setMode(mode);
     } else {
@@ -148,7 +151,7 @@ void IRAM_ATTR  ISR_sett_mode() {
 }
 
 float getTemp(){
-  status = false;
+  status = true;
   sensor.requestTemperatures(); 
   temp = sensor.getTempCByIndex(0);
 
@@ -159,7 +162,7 @@ float getTemp(){
   }
 
   if ( temp == -127 ) { //@reading error
-    status = true;
+    status = false;
     temp = 0;           //not display -127
     return temp;
   }
@@ -413,7 +416,7 @@ String humanReadableSize(const size_t bytes) {
 
 bool checkCertificate() {
   String cert;
-  bool fcert=false;
+  bool fcert = false;
   File root = SPIFFS.open("/");
   File foundfile = root.openNextFile();
   while (foundfile) {
@@ -465,7 +468,12 @@ void updateMain(){
 
 void updateMqtt(){
   String sslc = "none";
-  if(checkCertificate()){sslc="ssl.crt";}
+  if(checkCertificate()){
+    sslc="ssl.crt";
+  }else{
+    oled.showError("ssl cert not found.!");
+    delay(500);
+  }
   String edata =  mqserver + ","+ mquser + "," +mqpass + ","+ mqptopic + "," + mqstopic + ","+ String(mqinterval) + "," + sslc;
   events.send(edata.c_str(), "uimqtt", millis());
 }
@@ -507,7 +515,7 @@ String getUptime(){
 void checkServer(){
   IPAddress gwe(gw1, gw2, gw3, gw4);
   connected = false;
-  if (Ping.ping(gwe, 3)) { connected = true;}
+  if (Ping.ping(gwe, 3)) { connected = true;} 
 }
 
 
